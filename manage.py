@@ -12,3 +12,15 @@
 -------------------------------------------------
 """
 __author__ = 'pang'
+
+from flask_script import Manager
+
+# 初始化,__name__代表主模块名或者包
+
+app = create_app()
+
+manager = Manager(app=app)
+
+
+if __name__ == '__main__':
+    manager.run()
