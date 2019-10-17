@@ -13,14 +13,16 @@
 """
 __author__ = 'pang'
 
-from flask_script import Manager
+from flask_script import Manager, Server
+from flask_migrate import Migrate, MigrateCommand
+from app import app
+from app import db
+manager = Manager(app)
 
-# 初始化,__name__代表主模块名或者包
 
-app = create_app()
-
-manager = Manager(app=app)
-
+migrate = Migrate(app, db)
+manager.add_command("runserver", Server())
+manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
