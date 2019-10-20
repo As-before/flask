@@ -15,8 +15,8 @@ __author__ = 'pang'
 
 from flask_script import Manager, Server
 from flask_migrate import Migrate, MigrateCommand
-from app import app
-from app import db
+from apps import app
+from apps.api.model.model import db
 manager = Manager(app)
 
 

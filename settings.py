@@ -14,12 +14,12 @@
 __author__ = 'pang'
 
 DIALECT = 'mysql'
-DRIVER = 'pymysql'
+DRIVER = 'mysqlconnector'
 USERNAME = 'root'
-PASSWORD = '000000'
+PASSWORD = '123456'
 HOST = '127.0.0.1'
 PORT = '3306'
-DATABASE = 'test'
+DATABASE = 'flask'
 
 SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}?charset=utf8'.format(
     DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
@@ -29,3 +29,5 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 SQLALCHEMY_POOL_SIZE = 10
 SQLALCHEMY_MAX_OVERFLOW = 5
+
+JWT_AUTH_URL_RULE = '/login'

@@ -13,14 +13,13 @@
 """
 __author__ = 'pang'
 
-from flask_jwt import JWT, jwt_required
-from app.users.model import Users
+from apps.api.model.model import Users
 import time
 
 
 class Auth():
+
     def error_handler(self, e):
-        print(e)
         return "Something bad happened", 400
 
     def authenticate(self, username, password):

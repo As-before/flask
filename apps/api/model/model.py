@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
-  File Name：   users
+  File Name：   model
   Description :
   Author :    pang
   Email   : pangyd@spsp-it.com
@@ -17,7 +17,9 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from app import db
+from apps import app
+
+db = SQLAlchemy(app)
 
 
 class Users(db.Model):
@@ -54,6 +56,7 @@ class Users(db.Model):
     def delete(self, id):
         self.query.filter_by(id=id).delete()
         return session_commit()
+
 
 
 def session_commit():
