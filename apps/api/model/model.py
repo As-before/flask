@@ -37,24 +37,30 @@ class Users(db.Model):
     def __str__(self):
         return "Users(id='%s')" % self.id
 
-    def set_password(self, password):
+    @staticmethod
+    def set_password(password):
         return generate_password_hash(password)
 
-    def check_password(self, hash, password):
+    @staticmethod
+    def check_password(hash, password):
         return check_password_hash(hash, password)
 
-    def get(self, id):
-        return self.query.filter_by(id=id).first()
+    @staticmethod
+    def get(id):
+        return Users.query.filter_by(id=id).first()
 
-    def add(self, user):
+    @staticmethod
+    def add(user):
         db.session.add(user)
         return session_commit()
 
-    def update(self):
+    @staticmethod
+    def update():
         return session_commit()
 
-    def delete(self, id):
-        self.query.filter_by(id=id).delete()
+    @staticmethod
+    def delete(sid):
+        Users.query.filter_by(id=sid).delete()
         return session_commit()
 
 

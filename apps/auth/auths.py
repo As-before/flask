@@ -16,24 +16,25 @@ __author__ = 'pang'
 from apps.api.model.model import Users
 import time
 
-class Auth():
 
-    def error_handler(self, e):
-        return "Something bad happened", 400
+def error_handler(e):
+    return "Something bad happened", 400
 
-    def authenticate(self, username, password):
-        userInfo = Users.query.filter_by(username=username).first()
-        if (userInfo is None):
-            self.error_handler('找不到用户')
+
+def authenticate(username, password):
+    userInfo = Users.query.filter_by(username=username).first()
+    if userInfo is None:
+        error_handler('找不到用户')
+    else:
+        if Users.check_password(userInfo.password, password):
+            login_time = int(time.time())
+            userInfo.login_time = login_time
+            Users.update()
+            return userInfo
         else:
-            if Users.check_password(Users, userInfo.password, password):
-                login_time = int(time.time())
-                userInfo.login_time = login_time
-                Users.update(Users)
-                return userInfo
-            else:
-                self.error_handler('密码不正确')
+            error_handler('密码不正确')
 
-    def identity(self, payload):
-        id = payload['identity']
-        return Users.get(Users, id)
+
+def identity(payload):
+    ids = payload['identity']
+    return Users.get(ids)

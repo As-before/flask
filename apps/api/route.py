@@ -21,3 +21,9 @@ api.add_resource(UserResource, '/api/user', endpoint='api')
 from flasgger import Swagger
 
 Swagger(app)
+
+from flask import render_template
+@app.errorhandler(403)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('index.html'), 403

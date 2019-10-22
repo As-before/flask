@@ -49,10 +49,12 @@ app.config["SECRET_KEY"] = "pangyd"
 app.debug = True
 
 # 加载jwt设置
-from apps.auth.auths import Auth
+from apps.auth.auths import authenticate,identity
 
-auth = Auth()
-jwt = JWT(app, auth.authenticate, auth.identity)
+jwt = JWT(app, authenticate, identity)
 
 # 加载RESTful接口
 from apps.api.route import *
+from apps.libs.my_exception import *
+from apps.libs.error_code import *
+

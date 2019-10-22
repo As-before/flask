@@ -14,7 +14,8 @@
 
 from werkzeug.wrappers import Request
 from werkzeug.exceptions import Forbidden
-from flask_jwt import encode_token,jwt_required, jwt
+from apps.libs.error_code import my_Forbidden
+from flask_jwt import jwt
 from apps.api.model.model import Users
 
 
@@ -29,7 +30,8 @@ class CasbinMiddleware:
         # 检查每个请求的权限。
         if not self.check_permission(request):
             # 未授权，返回http 403错误。
-            return Forbidden()(environ, start_response)
+            return my_Forbidden()(environ, start_response)
+            # return Forbidden()(environ, start_response)
 
         # 权限已通过，请转到下一个模块
         return self.app(environ, start_response)
@@ -40,7 +42,7 @@ class CasbinMiddleware:
         try:
             token = str(request.headers.get('Authorization')).split(' ')[1]
             id = jwt.decode(token, "pangyd", algorithms=['HS256'])['identity']
-            user = Users.get(Users, id).username
+            user = Users.get(id).username
         except Exception:
             user = None
         if user is None:

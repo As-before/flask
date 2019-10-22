@@ -44,7 +44,7 @@ class UserResource(Resource):
                   type: integer
                   description: 状态码
         """
-        user = Users.get(Users, current_identity.id)
+        user = Users.get(current_identity.id)
         returnUser = {
             'id': user.id,
             'username': user.username,
@@ -104,8 +104,8 @@ class UserResource(Resource):
         email = request.form.get('email')
         username = request.form.get('username')
         password = request.form.get('password')
-        user = Users(email=email, username=username, password=Users.set_password(Users, password))
-        result = Users.add(Users, user)
+        user = Users(email=email, username=username, password=Users.set_password(password))
+        result = Users.add(user)
         if user.id:
             returnUser = {
                 'id': user.id,
@@ -149,7 +149,7 @@ class UserResource(Resource):
                   description: 状态码
         """
         id = request.form.get('id')
-        Users.delete(Users, id)
+        Users.delete(id)
         return jsonify({
             "status": True,
             "msg": "删除成功"
@@ -200,14 +200,14 @@ class UserResource(Resource):
                   type: boolean
                   description: 状态码
         """
-        user = Users.get(Users, current_identity.id)
+        user = Users.get(current_identity.id)
         email = request.form.get('email')
         username = request.form.get('username')
         password = request.form.get('password')
         user.username = username
         user.email = email
-        user.password = Users.set_password(Users, password)
-        result = Users.update(user)
+        user.password = Users.set_password(password)
+        Users.update()
         if user.id:
             returnUser = {
                 'id': user.id,
