@@ -1,0 +1,10 @@
+p, anonymous, /api/user, GET
+p, anonymous, /api/user, POST
+p, anonymous, /api/user, PUT
+p, anonymous, /apidocs/, GET
+p, anonymous, /flasgger_static/*, GET
+p, anonymous, /apispec_1.json, GET
+p, anonymous, /login, POST
+p, anonymous, /favicon.ico, POST
+p, admin, *, *
+g, alice, admin
